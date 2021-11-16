@@ -57,8 +57,8 @@ public class indexadmin {
 		JButton btnInicio = new JButton("Inicio");
 		btnInicio.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				indexuser newuserindex=new indexuser();
-				newuserindex.main(null);
+				new indexuser();
+				indexuser.main(null);
 				adminindexframe.dispose();
 			}
 		});
@@ -71,8 +71,8 @@ public class indexadmin {
 		JButton btnMercados = new JButton("Informes");
 		btnMercados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				money money=new money();
-				money.main(null);
+				new money();
+				inversiones.money.main(null);
 				adminindexframe.dispose();
 			}
 		});
@@ -90,8 +90,8 @@ public class indexadmin {
 		btnCerrarSesin.setForeground(Color.GRAY);
 		btnCerrarSesin.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				index index=new index();
-				index.main(null);
+				new index();
+				inversiones.index.main(null);
 				adminindexframe.dispose();
 			}
 		});
@@ -103,8 +103,8 @@ public class indexadmin {
 		JButton btnOperaciones = new JButton("Lista Usuarios");
 		btnOperaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				userlist ul=new userlist();
-				ul.main(null);
+				new userlist();
+				userlist.main(null);
 				adminindexframe.dispose();
 			}
 		});

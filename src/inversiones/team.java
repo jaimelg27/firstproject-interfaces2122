@@ -5,8 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -61,8 +59,8 @@ public class team {
 			JButton btnInicio = new JButton("Inicio");
 			btnInicio.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					index index=new index();
-					index.main(null);
+					new index();
+					inversiones.index.main(null);
 					teamframe.dispose();
 				}
 			});
@@ -87,8 +85,8 @@ public class team {
 			JButton btnquienesSomos = new JButton("\u00BFQuienes Somos?");
 			btnquienesSomos.addActionListener(new ActionListener( ) {
 				public void actionPerformed(ActionEvent e) {
-					team team=new team();
-					team.main(null);
+					new team();
+					inversiones.team.main(null);
 					teamframe.dispose();
 				}
 			});
@@ -101,8 +99,8 @@ public class team {
 			JButton btnContacto = new JButton("Contacto");
 			btnContacto.addActionListener(new ActionListener( ) {
 				public void actionPerformed(ActionEvent e) {
-					contact contact=new contact();
-					contact.main(null);
+					new contact();
+					inversiones.contact.main(null);
 					teamframe.dispose();
 				}
 			});
@@ -115,8 +113,8 @@ public class team {
 			JButton btnIniciarSesin = new JButton("Iniciar Sesi\u00F3n");
 			btnIniciarSesin.addActionListener(new ActionListener( ) {
 				public void actionPerformed(ActionEvent e) {
-					login login=new login();
-					login.main(null);
+					new login();
+					inversiones.login.main(null);
 					teamframe.dispose();
 				}
 			});

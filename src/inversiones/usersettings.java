@@ -5,18 +5,22 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class usersettings {
 
 	private JFrame usersettingsframe;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textFieldDom;
+	private JTextField textFieldTelf;
 
 	/**
 	 * Launch the application.
@@ -101,10 +105,6 @@ public class usersettings {
 		usersettingsframe.getContentPane().add(btnAjustes);
 		
 		JButton btnCerrarSesin = new JButton("Cerrar Sesi\u00F3n");
-		btnCerrarSesin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnCerrarSesin.setForeground(Color.GRAY);
 		btnCerrarSesin.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
@@ -139,6 +139,12 @@ public class usersettings {
 		usersettingsframe.getContentPane().add(lblAjustes);
 		
 		JButton btnDarDeBaja = new JButton("Dar de baja de EscolapInversiones");
+		btnDarDeBaja.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				removeaccount();
+			}
+		});
 		btnDarDeBaja.setForeground(Color.GRAY);
 		btnDarDeBaja.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		btnDarDeBaja.setBackground(Color.WHITE);
@@ -151,17 +157,23 @@ public class usersettings {
 		lblModificarDomicilio.setBounds(10, 156, 135, 21);
 		usersettingsframe.getContentPane().add(lblModificarDomicilio);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(10, 188, 352, 26);
-		usersettingsframe.getContentPane().add(textField);
+		textFieldDom = new JTextField();
+		textFieldDom.setColumns(10);
+		textFieldDom.setBounds(10, 188, 352, 26);
+		usersettingsframe.getContentPane().add(textFieldDom);
 		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setForeground(Color.GRAY);
-		btnModificar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		btnModificar.setBackground(Color.WHITE);
-		btnModificar.setBounds(10, 225, 140, 29);
-		usersettingsframe.getContentPane().add(btnModificar);
+		JButton btnModificarDom = new JButton("Modificar");
+		btnModificarDom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateAddress(textFieldDom.getText());	
+			}
+		});
+		btnModificarDom.setForeground(Color.GRAY);
+		btnModificarDom.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		btnModificarDom.setBackground(Color.WHITE);
+		btnModificarDom.setBounds(10, 225, 140, 29);
+		usersettingsframe.getContentPane().add(btnModificarDom);
 		
 		JLabel lblModificarTelefono = new JLabel("Modificar Telefono");
 		lblModificarTelefono.setForeground(Color.WHITE);
@@ -169,16 +181,58 @@ public class usersettings {
 		lblModificarTelefono.setBounds(10, 276, 135, 21);
 		usersettingsframe.getContentPane().add(lblModificarTelefono);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(10, 308, 352, 26);
-		usersettingsframe.getContentPane().add(textField_1);
+		textFieldTelf = new JTextField();
+		textFieldTelf.setColumns(10);
+		textFieldTelf.setBounds(10, 308, 352, 26);
+		usersettingsframe.getContentPane().add(textFieldTelf);
 		
-		JButton btnModificar_1 = new JButton("Modificar");
-		btnModificar_1.setForeground(Color.GRAY);
-		btnModificar_1.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		btnModificar_1.setBackground(Color.WHITE);
-		btnModificar_1.setBounds(10, 345, 143, 29);
-		usersettingsframe.getContentPane().add(btnModificar_1);
+		JButton btnModificarTelf = new JButton("Modificar");
+		btnModificarTelf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateTelephone(textFieldTelf.getText());	
+			}
+		});
+		btnModificarTelf.setForeground(Color.GRAY);
+		btnModificarTelf.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		btnModificarTelf.setBackground(Color.WHITE);
+		btnModificarTelf.setBounds(10, 345, 143, 29);
+		usersettingsframe.getContentPane().add(btnModificarTelf);
+	}
+	public void updateAddress(String newaddress) {
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="UPDATE clients SET address='"+newaddress+"' WHERE id='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL);
+			JOptionPane.showInternalMessageDialog(null , "Direccion cambiada.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void updateTelephone(String newtelephone) {
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="UPDATE clients SET telephonenumb='"+newtelephone+"' WHERE id='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL);
+			JOptionPane.showInternalMessageDialog(null , "Telefono cambiado.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void removeaccount() {
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="DELETE FROM clients WHERE id='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL);
+			JOptionPane.showInternalMessageDialog(null , "Su cuenta ha sido eliminada.");
+			new index();
+			inversiones.index.main(null);
+			usersettingsframe.dispose();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

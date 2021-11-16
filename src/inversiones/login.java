@@ -203,6 +203,7 @@ public class login {
 			public void mouseClicked(MouseEvent e) {
 				if(isCorrect(dniTextField.getText(), passwordField.getText())==true) {
 					new indexuser();
+					staticparametersclient.dni=dniTextField.getText();
 					inversiones.indexuser.main(null);
 					loginframe.dispose();
 				} else {

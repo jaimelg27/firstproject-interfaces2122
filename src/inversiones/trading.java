@@ -325,15 +325,11 @@ public class trading {
 				}
 			}
 		});
-		JButton btnNewButton_1_0 = new JButton("Comprar");
+		/*JButton btnNewButton_1_0 = new JButton("Comprar");
 		btnNewButton_1_0.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-/*
- * metodo con el que primero confirmo si tengo suficiente dinero para la compra de acciones, si es asi, compro las
- * acciones seleccionadas en el spinner, hago su calculo, y actualizo, tanto en la bbdd como  en el propio jlabel				
- */
-				
+
 				if ((Integer.parseInt(spinner_1_0.getValue().toString()))<0) {
 					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
 				}
@@ -629,12 +625,7 @@ public class trading {
 			}
 		});
 		btnNewButton_1_6.setBounds(867, 451, 85, 21);
-		panel_1.getContentPane().add(btnNewButton_1_6);
-		
-		JLabel UsuariosLabel = new JLabel("Usuarios");
-		UsuariosLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
-		UsuariosLabel.setBounds(212, 28, 106, 37);
-		frame.getContentPane().add(UsuariosLabel);
+		panel_1.getContentPane().add(btnNewButton_1_6);*/
 
 		
 		JPanel panel = new JPanel();
@@ -642,26 +633,21 @@ public class trading {
 		panel.setLayout(new GridLayout(8,4));
 		
 		
-		fluctuacion valor0= new fluctuacion(fluctuacion0, CorreoLabel_1_0, DineroLabel_1_0, "'ACCIONA'");
+		/*fluctuacion valor0= new fluctuacion(fluctuacion0, CorreoLabel_1_0, DineroLabel_1_0, "'ACCIONA'");
 		fluctuacion valor1= new fluctuacion(fluctuacion1, CorreoLabel_1_1, DineroLabel_1_1,"'ACS'");
 		fluctuacion valor2= new fluctuacion(fluctuacion2, CorreoLabel_1_2, DineroLabel_1_2,"'AENA'");
 		fluctuacion valor3= new fluctuacion(fluctuacion3, CorreoLabel_1_3, DineroLabel_1_3,"'BBVA'");
 		fluctuacion valor4= new fluctuacion(fluctuacion4, CorreoLabel_1_4, DineroLabel_1_4,"'BSCH'");
 		fluctuacion valor5= new fluctuacion(fluctuacion5, CorreoLabel_1_5, DineroLabel_1_5,"'INDITEX'");
-		fluctuacion valor6= new fluctuacion(fluctuacion6, CorreoLabel_1_6, DineroLabel_1_6,"'NATURGY'");
-		
-		JLabel Titulo_dinero_cuenta = new JLabel("EFECTIVO EN CUENTA:");
-		Titulo_dinero_cuenta.setFont(new Font("Tahoma", Font.BOLD, 20));
-		Titulo_dinero_cuenta.setBounds(426, 23, 232, 24);
-		frame.getContentPane().add(Titulo_dinero_cuenta);
+		fluctuacion valor6= new fluctuacion(fluctuacion6, CorreoLabel_1_6, DineroLabel_1_6,"'NATURGY'");*/
 
-		valor0.start();
+		/*valor0.start();
 		valor1.start();
 		valor2.start();
 		valor3.start();
 		valor4.start();
 		valor5.start();
-		valor6.start();
+		valor6.start();*/
 
 		
 	}

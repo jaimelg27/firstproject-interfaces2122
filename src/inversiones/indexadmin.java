@@ -71,10 +71,8 @@ public class indexadmin {
 		JButton btnMercados = new JButton("Informes");
 		btnMercados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new money();
-				inversiones.money.main(null);
-				adminindexframe.dispose();
-			}
+
+		}
 		});
 		btnMercados.setForeground(Color.GRAY);
 		btnMercados.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
@@ -85,16 +83,13 @@ public class indexadmin {
 		JButton btnCerrarSesin = new JButton("Cerrar Sesi\u00F3n");
 		btnCerrarSesin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCerrarSesin.setForeground(Color.GRAY);
-		btnCerrarSesin.addActionListener(new ActionListener( ) {
-			public void actionPerformed(ActionEvent e) {
 				new index();
 				inversiones.index.main(null);
 				adminindexframe.dispose();
 			}
+			
 		});
+		btnCerrarSesin.setForeground(Color.GRAY);
 		btnCerrarSesin.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		btnCerrarSesin.setBackground(Color.WHITE);
 		btnCerrarSesin.setBounds(1006, 24, 168, 29);

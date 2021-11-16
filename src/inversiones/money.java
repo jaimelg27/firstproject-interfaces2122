@@ -216,11 +216,26 @@ public class money {
 					} else {
 						addMoney(Double.parseDouble(textField.getText()));
 						if(rdbtnTarjetaBancaria.isSelected()) {
-							
+							try {
+								addmovement(1, Double.parseDouble(textField.getText()));
+							} catch (NumberFormatException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						} else if (rdbtnTransferencia.isSelected()) {
-							
+							try {
+								addmovement(2, Double.parseDouble(textField.getText()));
+							} catch (NumberFormatException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						} else if (rdbtnBizum.isSelected()) {
-							
+							try {
+								addmovement(3, Double.parseDouble(textField.getText()));
+							} catch (NumberFormatException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						}
 					}
 				} else if (rdbtnRetirar.isSelected()) {
@@ -229,11 +244,26 @@ public class money {
 					} else {
 						removeMoney(Double.parseDouble(textField.getText()));
 						if(rdbtnTarjetaBancaria.isSelected()) {
-							
+							try {
+								addmovement(4, Double.parseDouble(textField.getText()));
+							} catch (NumberFormatException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						} else if (rdbtnTransferencia.isSelected()) {
-							
+							try {
+								addmovement(5, Double.parseDouble(textField.getText()));
+							} catch (NumberFormatException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						} else if (rdbtnBizum.isSelected()) {
-							
+							try {
+								addmovement(6, Double.parseDouble(textField.getText()));
+							} catch (NumberFormatException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						}
 					}
 
@@ -250,8 +280,13 @@ public class money {
 		dbconnection dbconex=new dbconnection();
 		try {
 			Statement stat = dbconex.getConnection().createStatement();
-			String querySQL="UPDATE accounts SET value=value+'"+value+"' WHERE id_client='"+staticparametersclient.dni+"';";
-			stat.executeUpdate(querySQL);
+			String querySQL="SELECT id FROM accounts WHERE id_client= '"+staticparametersclient.dni+"';";
+			ResultSet rs=stat.executeQuery(querySQL);
+			while (rs.next()) {
+				staticparametersclient.account=rs.getString("id");
+			}
+			String querySQL2="UPDATE accounts SET value=value+'"+value+"' WHERE id_client='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL2);
 			JOptionPane.showInternalMessageDialog(null , "Dinero Ingresado");
 			dbconex.closeconn();
 		} catch (SQLException e) {
@@ -262,9 +297,10 @@ public class money {
 		dbconnection dbconex=new dbconnection();
 		try {
 			Statement stat = dbconex.getConnection().createStatement();
-			String querySQL="SELECT value FROM accounts WHERE id_client= '"+staticparametersclient.dni+"';";
+			String querySQL="SELECT value, id FROM accounts WHERE id_client= '"+staticparametersclient.dni+"';";
 			ResultSet rs=stat.executeQuery(querySQL);
 			while (rs.next()) {
+				staticparametersclient.account=rs.getString("id");
 				if((rs.getInt("value"))-value>=0) {
 					String querySQL2="UPDATE accounts SET value=value-'"+value+"' WHERE id_client='"+staticparametersclient.dni+"';";
 					stat.executeUpdate(querySQL2);
@@ -278,28 +314,42 @@ public class money {
 			e.printStackTrace();
 		}
 	}
-	public void addmovement(int opcion, double value) {
+	public void addmovement(int opcion, double value) throws SQLException {
 		dbconnection dbconex=new dbconnection();
 		switch(opcion) {
 		case 1:
 			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"',NULL,'"+value+"', 'Ingreso mediante tarjeta bancaria')";
+			stat.executeUpdate(querySQL);
 			break;
 		case 2:
-			Statement stat = dbconex.getConnection().createStatement();
+			Statement stat1 = dbconex.getConnection().createStatement();
+			String querySQL1="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"',NULL,'"+value+"', 'Ingreso mediante transferencia')";
+			stat1.executeUpdate(querySQL1);
 			break;
 		case 3:
-			Statement stat = dbconex.getConnection().createStatement();
+			Statement stat2 = dbconex.getConnection().createStatement();
+			String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"',NULL,'"+value+"', 'Ingreso mediante bizum')";
+			stat2.executeUpdate(querySQL2);
 			break;
 		case 4:
-			Statement stat = dbconex.getConnection().createStatement();
+			Statement stat3 = dbconex.getConnection().createStatement();
+			String querySQL3="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"',NULL,'"+value+"', 'Retirada mediante tarjeta bancaria')";
+			stat3.executeUpdate(querySQL3);
 			break;
 		case 5:
-			Statement stat = dbconex.getConnection().createStatement();
+			Statement stat4 = dbconex.getConnection().createStatement();
+			String querySQL4="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"',NULL,'"+value+"', 'Retirada mediante transferencia')";
+			stat4.executeUpdate(querySQL4);
 			break;
 		case 6:
-			Statement stat = dbconex.getConnection().createStatement();
+			Statement stat5 = dbconex.getConnection().createStatement();
+			String querySQL5="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"',NULL,'"+value+"', 'Retirada mediante bizum')";
+			stat5.executeUpdate(querySQL5);
 			break;
+		
 		}
+		dbconex.closeconn();
 	}
 	
 }

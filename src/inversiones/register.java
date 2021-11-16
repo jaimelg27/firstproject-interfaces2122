@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -23,10 +21,8 @@ import javax.swing.JCheckBox;
 
 public class register {
 	private JFrame registerframe;
-	private JTextField dniTextField;
 	private JTextField nameTextField;
 	private JTextField surnameTextField;
-	private JTextField dnitextField;
 	private JTextField adressTextField;
 	private JTextField pcTextField;
 	private JTextField emailTextField;
@@ -34,6 +30,7 @@ public class register {
 	private JPasswordField passwordField;
 	private JTextField contryTextField;
 	private JTextField cityTextField;
+	private JTextField idtextField;
 
 
 	public static void main(String[] args) {
@@ -176,11 +173,7 @@ public class register {
 		lblDni.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
 		lblDni.setBounds(387, 250, 27, 21);
 		registerframe.getContentPane().add(lblDni);
-		
-		dnitextField = new JTextField();
-		dnitextField.setColumns(10);
-		dnitextField.setBounds(450, 250, 352, 22);
-		registerframe.getContentPane().add(dnitextField);
+	
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
 		lblDireccin.setForeground(Color.WHITE);
@@ -265,16 +258,17 @@ public class register {
 		cityTextField.setBounds(449, 383, 352, 22);
 		registerframe.getContentPane().add(cityTextField);
 		
+		idtextField = new JTextField();
+		idtextField.setColumns(10);
+		idtextField.setBounds(449, 249, 352, 22);
+		registerframe.getContentPane().add(idtextField);
 		
 		JButton botonregistro = new JButton("Registrarse");
 		botonregistro.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try {
-					sendDBdata(nameTextField.getText(),surnameTextField.getText(),dniTextField.getText(), adressTextField.getText(), pcTextField.getText(),emailTextField.getText(),telephoneTextField.getText(), contryTextField.getText(), cityTextField.getText(), passwordField.getText());
-				} catch (MessagingException e1) {
-					e1.printStackTrace();
-				}
+				sendDBdata(nameTextField.getText(), surnameTextField.getText(), idtextField.getText(), adressTextField.getText(), pcTextField.getText(), emailTextField.getText(), telephoneTextField.getText(), contryTextField.getText(), cityTextField.getText(), passwordField.getText());
 			}
 		});
 		botonregistro.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -283,11 +277,13 @@ public class register {
 		botonregistro.setBounds(530, 549, 171, 39);
 		registerframe.getContentPane().add(botonregistro);
 		
+		
+		
 	}
 	
-	//Metodos para generar la contraseña y la clave telefonica
-	public String generatePassword() {
-		String chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	//Metodos para generar la cuenta y la clave telefonica
+	public static String generateaccount() {
+		String chars="0123456789";
 		SecureRandom random=new SecureRandom();
 		StringBuilder sb=new StringBuilder();
 		for (int i=0; i<10; i++) {
@@ -308,51 +304,33 @@ public class register {
 	}
 	
 	//Metodo para meter el registro en la base de datos
-	public static void sendDBdata (String name, String surname, String dni, String adress, String postalcode, String email, String telephone, String country, String city, String password) throws AddressException, MessagingException {
+	public void sendDBdata (String name, String surname, String dni, String adress, String postalcode, String email, String telephone, String country, String city, String password) {
 		dbconnection dbconex;
 		//String password=generatePassword();
-		String telpassword;
-		try {
-			telpassword = generateTelPassword();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		String	telpassword = generateTelPassword();
 		try {
 			dbconex=new dbconnection();
 			Statement stat = (Statement) dbconex.getConnection().createStatement();
-			String insertSQL= "INSERT INTO CLIENTS VALUES ('"+dni+"','"+name+"','"+surname+"','"+telephone+"','"+email+"','"+adress+"','"+city+"','"+postalcode+"','"+country+"','"+password+"','"+telpassword+"')";
+			String insertSQL= "INSERT INTO CLIENTS VALUES ('"+dni+"','"+name+"','"+surname+"','"+telephone+"','"+email+"','"+adress+"','"+city+"','"+postalcode+"','"+country+"','"+password+"','"+telpassword+"','0','0','0','0','0','0','0')";
 			stat.executeUpdate(insertSQL);
-			//sendwelcomemail(email, password, telpassword, name);
+			createaccount(dni);
 			JOptionPane.showInternalMessageDialog(null , "Se ha registrado correctamente. Revise su correo electrónico");
 			dbconex.closeconn();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//Metodo para enviar correo al usuario con los datos de acceso
-	/*public void sendwelcomemail (String email, String password, String telpassword, String name) throws AddressException, MessagingException {
-		Properties props= new Properties();
-		//Configuracion de correo de salida
-		props.setProperty("mail.smtp.host", "smtp.gmail.com");
-        props.setProperty("mail.smtp.starttls.enable", "true");
-        props.setProperty("mail.smtp.ssl.trust", "*");
-        props.setProperty("mail.smtp.port","587");
-        props.setProperty("mail.smtp.user", "Escolapinversiones@gmail.com");
-        props.setProperty("mail.smtp.auth", "true");
-        Session session= Session.getDefaultInstance(props);
-        session.setDebug(true);
-        String mensaje="Bienvenido "+name+" a EscolapInversiones:\n A continuacion le adjuntamos sus datos de acceso y la clave telefonica:\n - Contraseña de acceso: "+password+"\n - Clave telefonica"+telpassword+"\n Muchas gracias por confiar en EscolapInversiones,";
-        MimeMessage message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("Escolapinversiones@gmail.com"));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-        message.addRecipient(Message.RecipientType.BCC, new InternetAddress("Escolapinversiones@gmail.com"));
-        message.setSubject("Bienvenido a EscolapInversiones");
-        message.setText(mensaje);
-        javax.mail.Transport t= session.getTransport("smtp");
-        //Usuario y contraseña correo
-        t.connect("Escolapinversiones@gmail.com","Escolapios");
-        t.sendMessage(message, message.getAllRecipients());
-        t.close();
-	}*/
+	public void createaccount (String dni) {
+		dbconnection dbconex;
+		String idacc=generateaccount();
+		try {
+			dbconex=new dbconnection();
+			Statement stat = (Statement) dbconex.getConnection().createStatement();
+			String insertSQL= "INSERT INTO ACCOUNTS VALUES ('"+idacc+"','0','"+dni+"')";
+			stat.executeUpdate(insertSQL);
+			dbconex.closeconn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

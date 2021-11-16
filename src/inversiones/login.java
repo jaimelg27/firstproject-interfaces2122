@@ -238,6 +238,45 @@ public class login {
 		}
 		return false;
 	}
+	public static clientobject LoginClient(String dni) {
+		clientobject loginclient;
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="SELECT * FROM clients WHERE id= '"+dni+"';";
+			ResultSet rs=stat.executeQuery(querySQL);
+			while(rs.next()){
+				String id=rs.getString("id");;
+				String name=rs.getString("name");
+				String surname=rs.getString("surname");
+				String telnum=rs.getString("telephonenumb");
+				String email=rs.getString("email");
+				String address=rs.getString("address");
+				String city=rs.getString("city");
+				String postalcode=rs.getString("postalcode");
+				String country=rs.getString("country");
+				String password=rs.getString("password");
+				String telpassword=rs.getString("telpassword");
+				int accana=rs.getInt("accana");
+				int accaena=rs.getInt("accaena");
+				int accfer=rs.getInt("accfer");
+				int acciag=rs.getInt("acciag");
+				int accmel=rs.getInt("accmel");
+				int accrep=rs.getInt("accrep");
+				int acctef=rs.getInt("acctef");
+			}
+			String querySQL2="SELECT * FROM accounts WHERE id_client='"+dni+"';";
+			ResultSet rs2=stat.executeQuery(querySQL2);
+			while(rs2.next()) {
+				String account=rs2.getString("id");
+				String value=rs2.getString("value");
+			}
+			loginclient=new clientobject(id, name, surname, telnum, email, address, city, postalcode, country, password, telpassword, account, value, accana, accaena, accfer, acciag, accmel, accrep, acctef);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 
 }

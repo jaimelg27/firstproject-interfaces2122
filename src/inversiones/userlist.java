@@ -185,8 +185,8 @@ public class userlist {
 		JButton btnInicio = new JButton("Inicio");
 		btnInicio.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				userindex newuserindex=new userindex();
-				newuserindex.main(null);
+				new indexuser();
+				inversiones.indexuser.main(null);
 				userlistframe.dispose();
 			}
 		});
@@ -199,8 +199,8 @@ public class userlist {
 		JButton btnMercados = new JButton("Informes");
 		btnMercados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				money money=new money();
-				money.main(null);
+				new money();
+				inversiones.money.main(null);
 				userlistframe.dispose();
 			}
 		});
@@ -214,7 +214,7 @@ public class userlist {
 		btnAjustes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usersettings settings=new usersettings();
-				settings.main(null);
+				usersettings.main(null);
 				userlistframe.dispose();
 			}
 		});
@@ -232,8 +232,8 @@ public class userlist {
 		btnCerrarSesin.setForeground(Color.GRAY);
 		btnCerrarSesin.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				index index=new index();
-				index.main(null);
+				new index();
+				inversiones.index.main(null);
 				userlistframe.dispose();
 			}
 		});
@@ -245,8 +245,8 @@ public class userlist {
 		JButton btnOperaciones = new JButton("Lista Usuarios");
 		btnOperaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				trading ops=new trading();
-				ops.main(null);
+				new trading();
+				trading.main(null);
 				userlistframe.dispose();
 			}
 		});

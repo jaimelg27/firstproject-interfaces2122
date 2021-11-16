@@ -631,11 +631,6 @@ public class trading {
 		btnNewButton_1_6.setBounds(867, 451, 85, 21);
 		panel_1.getContentPane().add(btnNewButton_1_6);
 		
-		JLabel lblPrecio = new JLabel("PRECIO");
-		lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblPrecio.setBounds(451, 109, 49, 21);
-		panel_1.getContentPane().add(lblPrecio);
-		
 		JLabel UsuariosLabel = new JLabel("Usuarios");
 		UsuariosLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
 		UsuariosLabel.setBounds(212, 28, 106, 37);

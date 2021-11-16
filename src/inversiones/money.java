@@ -5,12 +5,17 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -196,16 +201,105 @@ public class money {
 		moneyframe.getContentPane().add(lblCantidad);
 		
 		textField = new JTextField();
-		textField.setBackground(Color.GRAY);
+		textField.setBackground(Color.WHITE);
 		textField.setBounds(528, 339, 174, 20);
 		moneyframe.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (rdbtnDepositar.isSelected()) {
+					if (Double.parseDouble(textField.getText())<0) {
+						JOptionPane.showInternalMessageDialog(null , "No puede introducir dinero negativo.");
+					} else {
+						addMoney(Double.parseDouble(textField.getText()));
+						if(rdbtnTarjetaBancaria.isSelected()) {
+							
+						} else if (rdbtnTransferencia.isSelected()) {
+							
+						} else if (rdbtnBizum.isSelected()) {
+							
+						}
+					}
+				} else if (rdbtnRetirar.isSelected()) {
+					if (Double.parseDouble(textField.getText())<0) {
+						JOptionPane.showInternalMessageDialog(null , "No puede sacar dinero negativo.");
+					} else {
+						removeMoney(Double.parseDouble(textField.getText()));
+						if(rdbtnTarjetaBancaria.isSelected()) {
+							
+						} else if (rdbtnTransferencia.isSelected()) {
+							
+						} else if (rdbtnBizum.isSelected()) {
+							
+						}
+					}
+
+				}
+			}
+		});
 		btnConfirmar.setForeground(Color.GRAY);
 		btnConfirmar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnConfirmar.setBackground(Color.WHITE);
 		btnConfirmar.setBounds(555, 388, 117, 31);
 		moneyframe.getContentPane().add(btnConfirmar);
 	}
+	public void addMoney(double value) {
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="UPDATE accounts SET value=value+'"+value+"' WHERE id_client='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL);
+			JOptionPane.showInternalMessageDialog(null , "Dinero Ingresado");
+			dbconex.closeconn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void removeMoney(double value) {
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="SELECT value FROM accounts WHERE id_client= '"+staticparametersclient.dni+"';";
+			ResultSet rs=stat.executeQuery(querySQL);
+			while (rs.next()) {
+				if((rs.getInt("value"))-value>=0) {
+					String querySQL2="UPDATE accounts SET value=value-'"+value+"' WHERE id_client='"+staticparametersclient.dni+"';";
+					stat.executeUpdate(querySQL2);
+					JOptionPane.showInternalMessageDialog(null , "Ha sacado dinero");
+					dbconex.closeconn();
+				} else {
+					JOptionPane.showInternalMessageDialog(null , "No es posible retirar esa cantidad, se quedaria en numeros rojos.");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void addmovement(int opcion, double value) {
+		dbconnection dbconex=new dbconnection();
+		switch(opcion) {
+		case 1:
+			Statement stat = dbconex.getConnection().createStatement();
+			break;
+		case 2:
+			Statement stat = dbconex.getConnection().createStatement();
+			break;
+		case 3:
+			Statement stat = dbconex.getConnection().createStatement();
+			break;
+		case 4:
+			Statement stat = dbconex.getConnection().createStatement();
+			break;
+		case 5:
+			Statement stat = dbconex.getConnection().createStatement();
+			break;
+		case 6:
+			Statement stat = dbconex.getConnection().createStatement();
+			break;
+		}
+	}
+	
 }

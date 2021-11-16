@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -61,8 +62,8 @@ public class money {
 		JButton btnInicio = new JButton("Inicio");
 		btnInicio.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				userindex newuserindex=new userindex();
-				newuserindex.main(null);
+				new indexuser();
+				inversiones.indexuser.main(null);
 				moneyframe.dispose();
 			}
 		});
@@ -75,8 +76,8 @@ public class money {
 		JButton btnMercados = new JButton("Depositar/Retirar Dinero");
 		btnMercados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				money money=new money();
-				money.main(null);
+				new money();
+				inversiones.money.main(null);
 				moneyframe.dispose();
 			}
 		});
@@ -89,8 +90,8 @@ public class money {
 		JButton btnAjustes = new JButton("Ajustes");
 		btnAjustes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersettings settings=new usersettings();
-				settings.main(null);
+				new usersettings();
+				usersettings.main(null);
 				moneyframe.dispose();
 			}
 		});
@@ -108,8 +109,8 @@ public class money {
 		btnCerrarSesin.setForeground(Color.GRAY);
 		btnCerrarSesin.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
-				index index=new index();
-				index.main(null);
+				new index();
+				inversiones.index.main(null);
 				moneyframe.dispose();
 			}
 		});
@@ -121,8 +122,8 @@ public class money {
 		JButton btnOperaciones = new JButton("Operaciones");
 		btnOperaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				trading ops=new trading();
-				ops.main(null);
+				new trading();
+				trading.main(null);
 				moneyframe.dispose();
 			}
 		});
@@ -138,12 +139,12 @@ public class money {
 		lblDepositarretirarDinero.setBounds(363, 92, 509, 55);
 		moneyframe.getContentPane().add(lblDepositarretirarDinero);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Depositar");
-		rdbtnNewRadioButton.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		rdbtnNewRadioButton.setBackground(Color.GRAY);
-		rdbtnNewRadioButton.setForeground(Color.WHITE);
-		rdbtnNewRadioButton.setBounds(520, 158, 79, 27);
-		moneyframe.getContentPane().add(rdbtnNewRadioButton);
+		JRadioButton rdbtnDepositar = new JRadioButton("Depositar");
+		rdbtnDepositar.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		rdbtnDepositar.setBackground(Color.GRAY);
+		rdbtnDepositar.setForeground(Color.WHITE);
+		rdbtnDepositar.setBounds(520, 158, 79, 27);
+		moneyframe.getContentPane().add(rdbtnDepositar);
 		
 		JRadioButton rdbtnRetirar = new JRadioButton("Retirar");
 		rdbtnRetirar.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
@@ -151,6 +152,10 @@ public class money {
 		rdbtnRetirar.setBackground(Color.GRAY);
 		rdbtnRetirar.setBounds(606, 158, 63, 27);
 		moneyframe.getContentPane().add(rdbtnRetirar);
+		
+		ButtonGroup bg=new ButtonGroup();
+		bg.add(rdbtnRetirar);
+		bg.add(rdbtnDepositar);
 		
 		JLabel lblPagarCon = new JLabel("Pagar con:");
 		lblPagarCon.setForeground(Color.WHITE);
@@ -179,6 +184,11 @@ public class money {
 		rdbtnBizum.setBounds(524, 282, 101, 27);
 		moneyframe.getContentPane().add(rdbtnBizum);
 		
+		ButtonGroup bg2=new ButtonGroup();
+		bg2.add(rdbtnTarjetaBancaria);
+		bg2.add(rdbtnTransferencia);
+		bg2.add(rdbtnBizum);
+		
 		JLabel lblCantidad = new JLabel("Cantidad:");
 		lblCantidad.setForeground(Color.WHITE);
 		lblCantidad.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -195,7 +205,7 @@ public class money {
 		btnConfirmar.setForeground(Color.GRAY);
 		btnConfirmar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnConfirmar.setBackground(Color.WHITE);
-		btnConfirmar.setBounds(563, 388, 109, 31);
+		btnConfirmar.setBounds(555, 388, 117, 31);
 		moneyframe.getContentPane().add(btnConfirmar);
 	}
 }

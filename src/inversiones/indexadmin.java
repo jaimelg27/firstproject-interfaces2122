@@ -65,20 +65,8 @@ public class indexadmin {
 		btnInicio.setForeground(Color.GRAY);
 		btnInicio.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		btnInicio.setBackground(Color.WHITE);
-		btnInicio.setBounds(575, 24, 97, 29);
+		btnInicio.setBounds(652, 24, 97, 29);
 		adminindexframe.getContentPane().add(btnInicio);
-		
-		JButton btnMercados = new JButton("Informes");
-		btnMercados.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-		}
-		});
-		btnMercados.setForeground(Color.GRAY);
-		btnMercados.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
-		btnMercados.setBackground(Color.WHITE);
-		btnMercados.setBounds(867, 24, 129, 29);
-		adminindexframe.getContentPane().add(btnMercados);
 		
 		JButton btnCerrarSesin = new JButton("Cerrar Sesi\u00F3n");
 		btnCerrarSesin.addActionListener(new ActionListener() {
@@ -95,18 +83,18 @@ public class indexadmin {
 		btnCerrarSesin.setBounds(1006, 24, 168, 29);
 		adminindexframe.getContentPane().add(btnCerrarSesin);
 		
-		JButton btnOperaciones = new JButton("Lista Usuarios");
+		JButton btnOperaciones = new JButton("Modificacion Usuarios");
 		btnOperaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new userlist();
-				userlist.main(null);
+				new adminmodification();
+				adminmodification.main(null);
 				adminindexframe.dispose();
 			}
 		});
 		btnOperaciones.setForeground(Color.GRAY);
 		btnOperaciones.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		btnOperaciones.setBackground(Color.WHITE);
-		btnOperaciones.setBounds(682, 24, 175, 29);
+		btnOperaciones.setBounds(759, 24, 237, 29);
 		adminindexframe.getContentPane().add(btnOperaciones);
 		
 		JLabel lblPanelAdministracin = new JLabel("Panel Administraci\u00F3n");

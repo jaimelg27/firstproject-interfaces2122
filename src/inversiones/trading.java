@@ -8,11 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,14 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-
 import com.mysql.jdbc.Statement;
-
-import Inversiones.Acciones;
-import Inversiones.Acciones_negativas;
-import Inversiones.Mete_menos_acciones;
-import Inversiones.VariablesEstaticas;
-import Inversiones.fluctuacion;
 
 public class trading {
 
@@ -60,21 +50,6 @@ public class trading {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		double fluctana = 2.00;
-		double fluctaena = 2.00;
-		double fluctfer = 2.00;
-		double fluctiag = 2.00;
-		double fluctmel = 2.00;
-		double fluctrep = 2.00;
-		double flucttef = 2.00;
-		
-		String f0= String.format("%.2f", fluctana);
-		String f1= String.format("%.2f", fluctaena);
-		String f2= String.format("%.2f", fluctfer);
-		String f3= String.format("%.2f", fluctiag);
-		String f4= String.format("%.2f", fluctmel);
-		String f5= String.format("%.2f", fluctrep);
-		String f6= String.format("%.2f", flucttef);
 		
 		panel_1 = new JFrame();
 		panel_1.setLocationRelativeTo(null);
@@ -165,45 +140,45 @@ public class trading {
 		btnOperaciones.setBounds(394, 24, 166, 29);
 		panel_1.getContentPane().add(btnOperaciones);
 		
-		JLabel SeleccionarLabel = new JLabel("A COMPRAR");
+		JLabel SeleccionarLabel = new JLabel("A COMPRAR/VENDER");
 		SeleccionarLabel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		SeleccionarLabel.setBounds(830, 106, 83, 21);
+		SeleccionarLabel.setBounds(867, 106, 145, 21);
 		panel_1.getContentPane().add(SeleccionarLabel);		
 		
 		
-		JLabel fluctuacion1Label = new JLabel(""+f0);
+		JLabel fluctuacion1Label = new JLabel(valueacc());
 		fluctuacion1Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion1Label.setBounds(592, 151, 27, 21);
+		fluctuacion1Label.setBounds(468, 149, 92, 21);
 		panel_1.getContentPane().add(fluctuacion1Label);
 		
-		JLabel fluctuacion2Label = new JLabel(""+f1);
+		JLabel fluctuacion2Label = new JLabel(valueacc());
 		fluctuacion2Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion2Label.setBounds(592, 201, 27, 21);
+		fluctuacion2Label.setBounds(468, 199, 92, 21);
 		panel_1.getContentPane().add(fluctuacion2Label);
 		
-		JLabel fluctuacion3Label = new JLabel(""+f2);
+		JLabel fluctuacion3Label = new JLabel(valueacc());
 		fluctuacion3Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion3Label.setBounds(592, 251, 27, 21);
+		fluctuacion3Label.setBounds(468, 249, 92, 21);
 		panel_1.getContentPane().add(fluctuacion3Label);
 		
-		JLabel fluctuacion4Label = new JLabel(""+f3);
+		JLabel fluctuacion4Label = new JLabel(valueacc());
 		fluctuacion4Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion4Label.setBounds(592, 301, 27, 21);
+		fluctuacion4Label.setBounds(468, 300, 92, 21);
 		panel_1.getContentPane().add(fluctuacion4Label);
 		
-		JLabel fluctuacion5Label = new JLabel(""+f4);
+		JLabel fluctuacion5Label = new JLabel(valueacc());
 		fluctuacion5Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion5Label.setBounds(592, 351, 27, 21);
+		fluctuacion5Label.setBounds(470, 349, 90, 21);
 		panel_1.getContentPane().add(fluctuacion5Label);
 		
-		JLabel fluctuacion6Label = new JLabel(""+f5);
+		JLabel fluctuacion6Label = new JLabel(valueacc());
 		fluctuacion6Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion6Label.setBounds(592, 401, 27, 21);
+		fluctuacion6Label.setBounds(471, 400, 89, 21);
 		panel_1.getContentPane().add(fluctuacion6Label);
 		
-		JLabel fluctuacion7Label = new JLabel(""+f6);
+		JLabel fluctuacion7Label = new JLabel(valueacc());
 		fluctuacion7Label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		fluctuacion7Label.setBounds(592, 451, 27, 21);
+		fluctuacion7Label.setBounds(473, 450, 87, 21);
 		panel_1.getContentPane().add(fluctuacion7Label);
 		
 		JSpinner spinner_1_0 = new JSpinner();
@@ -243,169 +218,160 @@ public class trading {
 		
 		JLabel lblFluctuacion = new JLabel("FLUCTUACION");
 		lblFluctuacion.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblFluctuacion.setBounds(563, 106, 96, 21);
+		lblFluctuacion.setBounds(468, 105, 96, 21);
 		panel_1.getContentPane().add(lblFluctuacion);
 		
 		JLabel lblMercado = new JLabel("MERCADO");
 		lblMercado.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblMercado.setBounds(272, 107, 71, 21);
+		lblMercado.setBounds(156, 106, 71, 21);
 		panel_1.getContentPane().add(lblMercado);
 		
 		JLabel lblAnaAcciona = new JLabel("ANA - ACCIONA");
 		lblAnaAcciona.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblAnaAcciona.setBounds(260, 145, 109, 21);
+		lblAnaAcciona.setBounds(144, 144, 109, 21);
 		panel_1.getContentPane().add(lblAnaAcciona);
 		
 		JLabel lblAenaAena = new JLabel("AENA - AENA");
 		lblAenaAena.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblAenaAena.setBounds(261, 196, 92, 21);
+		lblAenaAena.setBounds(145, 195, 92, 21);
 		panel_1.getContentPane().add(lblAenaAena);
 		
 		JLabel lblFerFerrovial = new JLabel("FER - FERROVIAL");
 		lblFerFerrovial.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblFerFerrovial.setBounds(256, 246, 112, 21);
+		lblFerFerrovial.setBounds(140, 245, 112, 21);
 		panel_1.getContentPane().add(lblFerFerrovial);
 		
 		JLabel lblIagIag = new JLabel("IAG - IAG");
 		lblIagIag.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblIagIag.setBounds(273, 301, 62, 21);
+		lblIagIag.setBounds(157, 300, 62, 21);
 		panel_1.getContentPane().add(lblIagIag);
 		
 		JLabel lblMelMeli = new JLabel("MEL - Meli\u00E1");
 		lblMelMeli.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblMelMeli.setBounds(271, 347, 79, 21);
+		lblMelMeli.setBounds(155, 346, 79, 21);
 		panel_1.getContentPane().add(lblMelMeli);
 		
 		JLabel lblRepRepsol = new JLabel("REP - Repsol");
 		lblRepRepsol.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblRepRepsol.setBounds(270, 395, 84, 21);
+		lblRepRepsol.setBounds(154, 394, 84, 21);
 		panel_1.getContentPane().add(lblRepRepsol);
 		
 		JLabel lblTefTelefonica = new JLabel("TEF - Telefonica");
 		lblTefTelefonica.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblTefTelefonica.setBounds(262, 447, 106, 21);
+		lblTefTelefonica.setBounds(146, 446, 106, 21);
 		panel_1.getContentPane().add(lblTefTelefonica);
 		
-		JButton btnNewButton_1_0 = new JButton("Comprar");
-		btnNewButton_1_0.addMouseListener(new MouseAdapter() {
+		
+		
+		JLabel lblAccionesActuales = new JLabel("ACCIONES ACTUALES");
+		lblAccionesActuales.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		lblAccionesActuales.setBounds(618, 105, 144, 21);
+		panel_1.getContentPane().add(lblAccionesActuales);
+		
+		JLabel fluctuacion1Label_1 = new JLabel(getActionDB(1));
+		fluctuacion1Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1.setBounds(642, 149, 85, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1);
+		
+		JLabel fluctuacion1Label_1_1 = new JLabel(getActionDB(2));
+		fluctuacion1Label_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1_1.setBounds(641, 196, 86, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1_1);
+		
+		JLabel fluctuacion1Label_1_1_1 = new JLabel(getActionDB(3));
+		fluctuacion1Label_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1_1_1.setBounds(642, 252, 85, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1_1_1);
+		
+		JLabel fluctuacion1Label_1_1_1_1 = new JLabel(getActionDB(4));
+		fluctuacion1Label_1_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1_1_1_1.setBounds(640, 301, 87, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1_1_1_1);
+		
+		JLabel fluctuacion1Label_1_1_1_2 = new JLabel(getActionDB(5));
+		fluctuacion1Label_1_1_1_2.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1_1_1_2.setBounds(641, 350, 86, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1_1_1_2);
+		
+		JLabel fluctuacion1Label_1_1_1_2_1 = new JLabel(getActionDB(6));
+		fluctuacion1Label_1_1_1_2_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1_1_1_2_1.setBounds(642, 400, 85, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1_1_1_2_1);
+		
+		JLabel fluctuacion1Label_1_1_1_2_1_1 = new JLabel(getActionDB(7));
+		fluctuacion1Label_1_1_1_2_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		fluctuacion1Label_1_1_1_2_1_1.setBounds(641, 448, 86, 21);
+		panel_1.getContentPane().add(fluctuacion1Label_1_1_1_2_1_1);
+		
+		JLabel lblPrecioAccion = new JLabel("PRECIO ACCION");
+		lblPrecioAccion.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		lblPrecioAccion.setBounds(324, 106, 107, 21);
+		panel_1.getContentPane().add(lblPrecioAccion);
+		
+		JLabel precio1Label_1 = new JLabel(costacc());
+		precio1Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio1Label_1.setBounds(337, 149, 77, 21);
+		panel_1.getContentPane().add(precio1Label_1);
+		
+		JLabel precio2Label_1 = new JLabel(costacc());
+		precio2Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio2Label_1.setBounds(337, 197, 77, 21);
+		panel_1.getContentPane().add(precio2Label_1);
+		
+		JLabel precio3Label_1 = new JLabel(costacc());
+		precio3Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio3Label_1.setBounds(337, 247, 77, 21);
+		panel_1.getContentPane().add(precio3Label_1);
+		
+		JLabel precio4Label_1 = new JLabel(costacc());
+		precio4Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio4Label_1.setBounds(337, 298, 77, 21);
+		panel_1.getContentPane().add(precio4Label_1);
+		
+		JLabel precio5Label_1 = new JLabel(costacc());
+		precio5Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio5Label_1.setBounds(337, 347, 77, 21);
+		panel_1.getContentPane().add(precio5Label_1);
+		
+		JLabel precio6Label_1 = new JLabel(costacc());
+		precio6Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio6Label_1.setBounds(335, 398, 79, 21);
+		panel_1.getContentPane().add(precio6Label_1);
+		
+		JLabel precio7Label_1 = new JLabel(costacc());
+		precio7Label_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		precio7Label_1.setBounds(337, 448, 77, 21);
+		panel_1.getContentPane().add(precio7Label_1);
+
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(201, 85, 883, 576);
+		panel.setLayout(new GridLayout(8,4));
+
+		JButton btnNewButton_1_01 = new JButton("Comprar");
+		btnNewButton_1_01.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if ((Integer.parseInt(spinner_1_1.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_1.getValue().toString()))*(Double.parseDouble(DineroLabel_1_1.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_1.getText().replace(",", "."), Integer.parseInt(spinner_1_1.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NACS
-					+ Integer.parseInt(spinner_1_1.getValue().toString());
-			VariablesEstaticas.NACS = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_acs='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_1.getValue().toString()), DineroLabel_1_1.getText(),"ACS");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(1, (Integer)spinner_1_0.getValue(), Double.parseDouble(precio1Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
-		/*JButton btnNewButton_1_0 = new JButton("Comprar");
-		btnNewButton_1_0.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				if ((Integer.parseInt(spinner_1_0.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_0.getValue().toString()))*(Double.parseDouble(DineroLabel_1_0.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-//***********cuando obtengo el dinero, viene con una coma y hay que remplazarla con un punto************
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_0.getText().replace(",", "."), Integer.parseInt(spinner_1_0.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NAcciona
-					+ Integer.parseInt(spinner_1_0.getValue().toString());
-			VariablesEstaticas.NAcciona = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_acciona='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_0.getValue().toString()), DineroLabel_1_0.getText(),"Acciona");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-				}
-			}
-		});
-		btnNewButton_1_0.setBounds(867, 148, 85, 21);
-		panel_1.getContentPane().add(btnNewButton_1_0);
+		btnNewButton_1_01.setBounds(867, 148, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01);
 		
 		JButton btnNewButton_1_1 = new JButton("Comprar");
 		btnNewButton_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//evento boton1
-				if ((Integer.parseInt(spinner_1_1.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_1.getValue().toString()))*(Double.parseDouble(DineroLabel_1_1.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_1.getText().replace(",", "."), Integer.parseInt(spinner_1_1.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NACS
-					+ Integer.parseInt(spinner_1_1.getValue().toString());
-			VariablesEstaticas.NACS = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_acs='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_1.getValue().toString()), DineroLabel_1_1.getText(),"ACS");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(2, (Integer)spinner_1_1.getValue(), Double.parseDouble(precio2Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -416,39 +382,11 @@ public class trading {
 		btnNewButton_1_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//evento boton2
-				if ((Integer.parseInt(spinner_1_2.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_2.getValue().toString()))*(Double.parseDouble(DineroLabel_1_2.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_2.getText().replace(",", "."), Integer.parseInt(spinner_1_2.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NAena
-					+ Integer.parseInt(spinner_1_2.getValue().toString());
-			VariablesEstaticas.NAena = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_aena='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_2.getValue().toString()), DineroLabel_1_2.getText(),"Aena");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(3, (Integer)spinner_1_2.getValue(), Double.parseDouble(precio3Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -458,39 +396,11 @@ public class trading {
 		JButton btnNewButton_1_3 = new JButton("Comprar");
 		btnNewButton_1_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//evento boton3
-				if ((Integer.parseInt(spinner_1_3.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_3.getValue().toString()))*(Double.parseDouble(DineroLabel_1_3.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_3.getText().replace(",", "."), Integer.parseInt(spinner_1_3.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NBBVA
-					+ Integer.parseInt(spinner_1_3.getValue().toString());
-			VariablesEstaticas.NBBVA = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_bbva='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_3.getValue().toString()), DineroLabel_1_3.getText(),"BBVA");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(4, (Integer)spinner_1_3.getValue(), Double.parseDouble(precio4Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -501,39 +411,11 @@ public class trading {
 		btnNewButton_1_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//evento boton4
-				if ((Integer.parseInt(spinner_1_4.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_4.getValue().toString()))*(Double.parseDouble(DineroLabel_1_4.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_4.getText().replace(",", "."), Integer.parseInt(spinner_1_4.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NBSCH
-					+ Integer.parseInt(spinner_1_4.getValue().toString());
-			VariablesEstaticas.NBSCH = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_bsch='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_4.getValue().toString()), DineroLabel_1_4.getText(),"BSCH");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(5, (Integer)spinner_1_4.getValue(), Double.parseDouble(precio5Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -544,40 +426,11 @@ public class trading {
 		btnNewButton_1_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				//evento boton5
-				if ((Integer.parseInt(spinner_1_5.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_5.getValue().toString()))*(Double.parseDouble(DineroLabel_1_5.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_5.getText().replace(",", "."), Integer.parseInt(spinner_1_5.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NInditex
-					+ Integer.parseInt(spinner_1_5.getValue().toString());
-			VariablesEstaticas.NInditex = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_inditex='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_5.getValue().toString()), DineroLabel_1_5.getText(),"Inditex");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(6, (Integer)spinner_1_5.getValue(), Double.parseDouble(precio6Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -588,68 +441,293 @@ public class trading {
 		btnNewButton_1_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//evento boton 6
-				if ((Integer.parseInt(spinner_1_6.getValue().toString()))<0) {
-					JOptionPane.showInternalMessageDialog(null , "No puedes comprar acciones negativas.");
-				}
-				else if (((Integer.parseInt(spinner_1_6.getValue().toString()))*(Double.parseDouble(DineroLabel_1_6.getText().replace(",", "."))))>VariablesEstaticas.Dinero)                                 {
-					JOptionPane.showInternalMessageDialog(null , "No tienes suficiente dinero para comprar las acciones.");
-				}else {
-			CompraAccion (VariablesEstaticas.Dinero, DineroLabel_1_6.getText().replace(",", "."), Integer.parseInt(spinner_1_6.getValue().toString()));
-					
-			int accionesrestantes = VariablesEstaticas.NNaturgy
-					+ Integer.parseInt(spinner_1_6.getValue().toString());
-			VariablesEstaticas.NNaturgy = accionesrestantes;
-
-			try {
-				Connection miConexion = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones", "root", "");
-				Statement miStatement = (Statement) miConexion.createStatement();
-				String instruccionSQL = "UPDATE cliente SET numero_naturgy='" + accionesrestantes
-						+ "' WHERE correo='" + VariablesEstaticas.Correo + "';";
-				miStatement.executeUpdate(instruccionSQL);
-			} catch (SQLException f) {
-				f.printStackTrace();
-			}
-			String dineroactualizado = String.valueOf(VariablesEstaticas.Dinero);
-			Dinero1.setText(dineroactualizado);
-			
-			try {
-				registroscompra(VariablesEstaticas.NombreEstatico, VariablesEstaticas.ApellidoEstatico,Integer.parseInt(spinner_1_6.getValue().toString()), DineroLabel_1_6.getText(),"Naturgy");
-			} catch (NumberFormatException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
+				try {
+					buy(7, (Integer)spinner_1_6.getValue(), Double.parseDouble(precio7Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
 		btnNewButton_1_6.setBounds(867, 451, 85, 21);
-		panel_1.getContentPane().add(btnNewButton_1_6);*/
-
+		panel_1.getContentPane().add(btnNewButton_1_6);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(201, 85, 883, 576);
-		panel.setLayout(new GridLayout(8,4));
+		JButton btnNewButton_1_01_1 = new JButton("Vender");
+		btnNewButton_1_01_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(1, (Integer)spinner_1_0.getValue(), Double.parseDouble(precio1Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1.setBounds(962, 147, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1);
 		
+		JButton btnNewButton_1_01_1_1 = new JButton("Vender");
+		btnNewButton_1_01_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(2, (Integer)spinner_1_1.getValue(), Double.parseDouble(precio2Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1_1.setBounds(962, 197, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1_1);
+		JButton btnNewButton_1_01_1_1_1 = new JButton("Vender");
+		btnNewButton_1_01_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(3, (Integer)spinner_1_2.getValue(), Double.parseDouble(precio3Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1_1_1.setBounds(962, 253, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1_1_1);
 		
-		/*fluctuacion valor0= new fluctuacion(fluctuacion0, CorreoLabel_1_0, DineroLabel_1_0, "'ACCIONA'");
-		fluctuacion valor1= new fluctuacion(fluctuacion1, CorreoLabel_1_1, DineroLabel_1_1,"'ACS'");
-		fluctuacion valor2= new fluctuacion(fluctuacion2, CorreoLabel_1_2, DineroLabel_1_2,"'AENA'");
-		fluctuacion valor3= new fluctuacion(fluctuacion3, CorreoLabel_1_3, DineroLabel_1_3,"'BBVA'");
-		fluctuacion valor4= new fluctuacion(fluctuacion4, CorreoLabel_1_4, DineroLabel_1_4,"'BSCH'");
-		fluctuacion valor5= new fluctuacion(fluctuacion5, CorreoLabel_1_5, DineroLabel_1_5,"'INDITEX'");
-		fluctuacion valor6= new fluctuacion(fluctuacion6, CorreoLabel_1_6, DineroLabel_1_6,"'NATURGY'");*/
-
-		/*valor0.start();
-		valor1.start();
-		valor2.start();
-		valor3.start();
-		valor4.start();
-		valor5.start();
-		valor6.start();*/
-
+		JButton btnNewButton_1_01_1_1_1_1 = new JButton("Vender");
+		btnNewButton_1_01_1_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(4, (Integer)spinner_1_3.getValue(), Double.parseDouble(precio4Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1_1_1_1.setBounds(962, 303, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1_1_1_1);
+		
+		JButton btnNewButton_1_01_1_1_1_1_1 = new JButton("Vender");
+		btnNewButton_1_01_1_1_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(5, (Integer)spinner_1_4.getValue(), Double.parseDouble(precio5Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1_1_1_1_1.setBounds(964, 350, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1_1_1_1_1);
+		
+		JButton btnNewButton_1_01_1_1_1_1_1_1 = new JButton("Vender");
+		btnNewButton_1_01_1_1_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(6, (Integer)spinner_1_5.getValue(), Double.parseDouble(precio6Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1_1_1_1_1_1.setBounds(963, 400, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1_1_1_1_1_1);
+		
+		JButton btnNewButton_1_01_1_1_1_1_1_2 = new JButton("Vender");
+		btnNewButton_1_01_1_1_1_1_1_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					sell(7, (Integer)spinner_1_6.getValue(), Double.parseDouble(precio7Label_1.getText().replace(",",".")));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1_01_1_1_1_1_1_2.setBounds(966, 450, 85, 21);
+		panel_1.getContentPane().add(btnNewButton_1_01_1_1_1_1_1_2);
 		
 	}
+	public String valueacc() {
+		double dvalue;
+		dvalue=6*Math.random();
+		String value = (String) String.format("%.2f", dvalue);
+		return value;
 	}
+	public String costacc() {
+		double dcost;
+		dcost=60*Math.random();
+		String cost = (String) String.format("%.2f", dcost);
+		return cost;
+	}
+	public String getActionDB(int acc) {
+		String result=" ";
+		dbconnection dbconex=new dbconnection();
+		try {
+			String dni=staticparametersclient.dni;
+			Statement stat = (Statement) dbconex.getConnection().createStatement();
+			String querySQL="SELECT accana, accaena, accfer, acciag, accmel, accrep, acctef FROM clients WHERE id= '"+dni+"';";
+			ResultSet rs=stat.executeQuery(querySQL);
+			while(rs.next()){
+        		if (acc==1) {
+        			result=rs.getString("accana");
+        		} else if (acc==2) {
+        			result=rs.getString("accaena");
+        		} else if (acc==3) {
+        			result=rs.getString("accfer");
+        		} else if (acc==4) {
+        			result=rs.getString("acciag");
+        		} else if (acc==5) {
+        			result=rs.getString("accmel");
+        		}else if (acc==6) {
+        			result=rs.getString("accrep");
+        		} else {
+        			result=rs.getString("acctef");
+        		}
+			}
+			dbconex.closeconn();
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public void buy(int idacc, int num, double value) throws SQLException {
+		double money=Double.parseDouble(getMoney());
+		if(((num*value)>money)||(num<=0)) {
+			JOptionPane.showInternalMessageDialog(null , "No valido");
+		} else {
+			dbconnection dbconex=new dbconnection();
+			if(idacc==1) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accana=accana+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','ana','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==2) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accaena=accaena+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','aena','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==3) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accfer=accfer+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','fer','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==4) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET acciag=acciag+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','iag','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==5) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accmel=accmel+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','mel','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==6) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accrep=accrep+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','rep','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			} else {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET acctef=acctef+'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','tef','"+value*num+"', 'Compra acciones')";
+				stat.executeUpdate(querySQL2);
+			}
+			Statement stat = (Statement) dbconex.getConnection().createStatement();
+			String querySQL="UPDATE accounts SET value=value-'"+(num*value)+"' WHERE id_client='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL);
+			dbconex.closeconn();
+			
+		}
+	}
+	public void sell(int idacc, int num, double value) throws SQLException {
+		if(num<=0) {
+			JOptionPane.showInternalMessageDialog(null , "No valido");
+		} else {
+			dbconnection dbconex=new dbconnection();
+			if(idacc==1) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accana=accana-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','ana','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==2) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accaena=accaena-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','aena','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==3) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accfer=accfer-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','fer','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==4) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET acciag=acciag-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','iag','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==5) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accmel=accmel-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','mel','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			} else if (idacc==6) {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET accrep=accrep-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','rep','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			} else {
+				Statement stat = (Statement) dbconex.getConnection().createStatement();
+				String querySQL="UPDATE clients SET acctef=acctef-'"+num+"' WHERE id='"+staticparametersclient.dni+"';";
+				stat.executeUpdate(querySQL);
+				String querySQL2="INSERT INTO MOVEMENTS(id_account, id_market, value, concept) VALUES('"+staticparametersclient.account+"','tfn','"+value*num+"', 'Venta acciones')";
+				stat.executeUpdate(querySQL2);
+			}
+			Statement stat = (Statement) dbconex.getConnection().createStatement();
+			String querySQL="UPDATE accounts SET value=value+'"+(num*value)+"' WHERE id_client='"+staticparametersclient.dni+"';";
+			stat.executeUpdate(querySQL);
+			dbconex.closeconn();
+			
+			}
+		}
+	
+	public String getMoney() {
+		String value= " ";
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = (Statement) dbconex.getConnection().createStatement();
+			String querySQL="SELECT value FROM accounts WHERE id_client= '"+staticparametersclient.dni+"';";
+			ResultSet rs=stat.executeQuery(querySQL);
+			while (rs.next()) {
+				value=rs.getString("value");
+			}
+			dbconex.closeconn();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+}
 

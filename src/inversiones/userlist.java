@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -398,14 +399,13 @@ public class userlist {
 				
 //*******************si esta a null, avisa de que no puedes seleccionarlo**************			
 				if (CorreoLabel_1_0.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 //*****************si no lo esta, llamamos al metodo que nos trae los datos************
 				 DatosCliente2(CorreoLabel_1_0.getText());
 //*****************y con una ventana avisamos de que ya tenemos los datos guardados**********
 				 adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -419,12 +419,11 @@ public class userlist {
 			public void mouseClicked(MouseEvent e) {
 				
 				if (CorreoLabel_1_1.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 				DatosCliente2(CorreoLabel_1_1.getText());
 				adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -437,13 +436,12 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_2.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 				
 				 DatosCliente2(CorreoLabel_1_2.getText());
 				 	adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -456,13 +454,12 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_3.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 				
 			DatosCliente2(CorreoLabel_1_3.getText());
 					adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -476,12 +473,11 @@ public class userlist {
 			public void mouseClicked(MouseEvent e) {
 				
 				if (CorreoLabel_1_4.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 			DatosCliente2(CorreoLabel_1_4.getText());
 					adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -494,12 +490,11 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_5.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 				DatosCliente2(CorreoLabel_1_5.getText());
 					adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -512,12 +507,11 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_6.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 			DatosCliente2(CorreoLabel_1_6.getText());
 					adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 					}
 			}
@@ -530,12 +524,11 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_7.getText().equals("Null")) {
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 			DatosCliente2(CorreoLabel_1_7.getText());
 					adminmodification modifica= new adminmodification();
-					modifica.main(null);
+					adminmodification.main(null);
 					userlistframe.dispose();
 				}
 			}
@@ -550,17 +543,14 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_0.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					EliminaCliente(CorreoLabel_1_0.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_0.setText("Null");
 					ApellidoLabel_1_0.setText("Null");
 					UsuarioLabel_1_0.setText("Null");
 				}	
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar.setBounds(1057, 152, 85, 21);
@@ -573,18 +563,15 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_1.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_1.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_1.setText("Null");
 					ApellidoLabel_1_1.setText("Null");
 					UsuarioLabel_1_1.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_1.setBounds(1057, 202, 85, 21);
@@ -633,22 +620,19 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_2.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_2.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_2.setText("Null");
 					ApellidoLabel_1_2.setText("Null");
 					UsuarioLabel_1_2.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_2.setBounds(789, 225, 85, 21);
-		panel_1.add(btnEliminar_2);
+		userlistframe.add(btnEliminar_2);
 		
 		JButton btnEliminar_3 = new JButton("Eliminar");
 		btnEliminar_3.setForeground(Color.WHITE);
@@ -657,22 +641,19 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_3.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_3.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_3.setText("Null");
 					ApellidoLabel_1_3.setText("Null");
 					UsuarioLabel_1_3.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_3.setBounds(789, 273, 85, 21);
-		panel_1.add(btnEliminar_3);
+		userlistframe.add(btnEliminar_3);
 		
 		JButton btnEliminar_4 = new JButton("Eliminar");
 		btnEliminar_4.setForeground(Color.WHITE);
@@ -681,22 +662,19 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_4.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_4.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_4.setText("Null");
 					ApellidoLabel_1_4.setText("Null");
 					UsuarioLabel_1_4.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_4.setBounds(789, 323, 85, 21);
-		panel_1.add(btnEliminar_4);
+		userlistframe.add(btnEliminar_4);
 		
 		JButton btnEliminar_5 = new JButton("Eliminar");
 		btnEliminar_5.setForeground(Color.WHITE);
@@ -705,22 +683,19 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_5.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_5.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");;
 					CorreoLabel_1_5.setText("Null");
 					ApellidoLabel_1_5.setText("Null");
 					UsuarioLabel_1_5.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_5.setBounds(789, 373, 85, 21);
-		panel_1.add(btnEliminar_5);
+		userlistframe.add(btnEliminar_5);
 		
 		JButton btnEliminar_6 = new JButton("Eliminar");
 		btnEliminar_6.setForeground(Color.WHITE);
@@ -729,18 +704,15 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_6.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_6.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_6.setText("Null");
 					ApellidoLabel_1_6.setText("Null");
 					UsuarioLabel_1_6.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_6.setBounds(789, 423, 85, 21);
@@ -753,18 +725,15 @@ public class userlist {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (CorreoLabel_1_7.getText().equals("Null")){
-					clientenotexists nec = new clientenotexists();
-					nec.main(null);
+					JOptionPane.showInternalMessageDialog(null , "El cliente no existe");
 				}else {
 					//sentencia para eliminar
 					EliminaCliente(CorreoLabel_1_7.getText());
-					registerdeleted re = new registerdeleted();
+					JOptionPane.showInternalMessageDialog(null , "Cliente eliminado");
 					CorreoLabel_1_7.setText("Null");
 					ApellidoLabel_1_7.setText("Null");
 					UsuarioLabel_1_7.setText("Null");
 				}
-				registerdeleted re = new registerdeleted();
-				re.main(null);
 			}
 		});
 		btnEliminar_7.setBounds(789, 473, 85, 21);
@@ -775,12 +744,6 @@ public class userlist {
 		UsuariosLabel.setBounds(212, 28, 106, 37);
 		userlistframe.getContentPane().add(UsuariosLabel);
 		
-		String adm  = VariablesEstaticas.Admin;
-		
-		JLabel NAdmin = new JLabel(adm);
-		NAdmin.setFont(new Font("Tahoma", Font.BOLD, 16));
-		NAdmin.setBounds(639, 26, 200, 22);
-		userlistframe.getContentPane().add(NAdmin);
 		
 		JLabel TituloAdmin = new JLabel("Administrador:");
 		TituloAdmin.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -790,7 +753,7 @@ public class userlist {
 		JPanel panel = new JPanel();
 		panel.setBounds(201, 85, 883, 576);
 		panel.setLayout(new GridLayout(8,4));
-	
+				}
 	}
 	//**************devuelve en una lista los correos********************
 	public static ArrayList<String> arraydecorreoclientes() {
@@ -849,70 +812,6 @@ public class userlist {
 			}
 		return apellidos;
 	}
-	//***********retorna un objeto con todos los datos del cliente**********
-public static clientobject DatosCliente(String correo) {
-		
-		try{
-			clientobject buscado; 
-			Connection miConexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones","root","");
-			Statement miStatement=(Statement) miConexion.createStatement();
-			String instruccionSQL="SELECT * FROM clientes where correo = '"+correo+"';";
-			ResultSet miResultset=miStatement.executeQuery(instruccionSQL);
-			
-			while(miResultset.next()){
-				
-				String nombre = miResultset.getString("nombre");
-				String apellidos = miResultset.getString("apellidos");
-				String correoCl = miResultset.getString("correo");
-				int telefono = miResultset.getInt("telefono");
-				String contrasena = miResultset.getString("contrasena");
-				String cuenta_bancaria = miResultset.getString("cuenta_bancaria");
-				double sueldo = miResultset.getDouble("sueldo");
-				int numero_acciona = miResultset.getInt("numero_acciona");
-				int numero_acs = miResultset.getInt("numero_acs");
-				int numero_aena = miResultset.getInt("numero_aena");
-				int numero_bbva = miResultset.getInt("numero_bbva");
-				int numero_bsch = miResultset.getInt("numero_bsch");
-				int numero_inditex = miResultset.getInt("numero_inditex");
-				int numero_naturgy = miResultset.getInt("numero_naturgy");
-				int numero_repsol = miResultset.getInt("numero_repsol");
-				
-				 buscado = new clientobject(nombre,apellidos,correoCl,telefono,contrasena,cuenta_bancaria,
-						sueldo,numero_acciona,numero_acs,numero_aena,numero_bbva,numero_bsch,numero_inditex,
-						numero_naturgy,numero_repsol);
-
-				return buscado;
-			}
-			} catch(Exception e){
-				System.out.println("Error de conexión con la BD al crear el objeto.");
-			}
-		return null;
-	}
-//************recoge un objeto con los datos y los instancia en VariablesEstaticas***********
-public static void DatosCliente2(String correo) {
-	
-	try{
-		clientobject buscado; 
-		Connection miConexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/EscolapInversiones","root","");
-		Statement miStatement=(Statement) miConexion.createStatement();
-		String instruccionSQL="SELECT * FROM cliente where correo = '"+correo+"';";
-		ResultSet miResultset=miStatement.executeQuery(instruccionSQL);
-		
-		while(miResultset.next()){
-			
-			staticparametersclient.NombreEstatico = miResultset.getString("nombre");
-			staticparametersclient.ApellidoEstatico = miResultset.getString("apellidos");
-			staticparametersclient.Correo = miResultset.getString("correo");
-			staticparametersclient.Telefono = miResultset.getInt("telefono");
-			staticparametersclient.Password1 = miResultset.getString("contrasena");
-			staticparametersclient.Cuenta = miResultset.getString("cuenta_bancaria");
-			staticparametersclient.Dinero = miResultset.getDouble("sueldo");
-			miConexion.close();
-		}
-		} catch(Exception e){
-			System.out.println("Error de conexión con la BD al crear el objeto.");
-		}
-}	
 //**********metodo para eliminar un cliente**********************
 		public static void EliminaCliente(String Correo) {
 			Connection miConexion;

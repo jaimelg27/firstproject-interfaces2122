@@ -275,6 +275,34 @@ public class money {
 		btnConfirmar.setBackground(Color.WHITE);
 		btnConfirmar.setBounds(555, 388, 117, 31);
 		moneyframe.getContentPane().add(btnConfirmar);
+		
+		JLabel lblDineroActual = new JLabel("Dinero Actual");
+		lblDineroActual.setForeground(Color.WHITE);
+		lblDineroActual.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		lblDineroActual.setBounds(121, 11, 136, 28);
+		moneyframe.getContentPane().add(lblDineroActual);
+		
+		JLabel lblNull = new JLabel(getMoney());
+		lblNull.setForeground(Color.WHITE);
+		lblNull.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblNull.setBounds(150, 44, 90, 21);
+		moneyframe.getContentPane().add(lblNull);
+	}
+	public String getMoney() {
+		String value= " ";
+		dbconnection dbconex=new dbconnection();
+		try {
+			Statement stat = dbconex.getConnection().createStatement();
+			String querySQL="SELECT value FROM accounts WHERE id_client= '"+staticparametersclient.dni+"';";
+			ResultSet rs=stat.executeQuery(querySQL);
+			while (rs.next()) {
+				value=rs.getString("value");
+			}
+			dbconex.closeconn();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return value;
 	}
 	public void addMoney(double value) {
 		dbconnection dbconex=new dbconnection();
@@ -351,5 +379,4 @@ public class money {
 		}
 		dbconex.closeconn();
 	}
-	
 }
